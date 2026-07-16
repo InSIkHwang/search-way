@@ -24,9 +24,18 @@ export interface NaverBrowserPage {
   evaluate?(pageFunction: () => string): Promise<string>;
 }
 
+export interface NaverBrowserRoute {
+  request(): { resourceType(): string };
+  abort(): Promise<void>;
+  continue(): Promise<void>;
+}
+
+export type NaverRouteHandler = (route: NaverBrowserRoute) => Promise<void> | void;
+
 export interface NaverBrowserContext {
   newPage(): Promise<NaverBrowserPage>;
   close(): Promise<void>;
+  route?(pattern: string, handler: NaverRouteHandler): Promise<void>;
 }
 
 export interface NaverBrowser {
@@ -45,6 +54,23 @@ export interface NaverBrowserPageFactory {
 
 const TIMEOUT_MS = 120_000;
 const READY_TEXT = "직항";
+
+// Images, fonts, and media never contribute to the text the parser reads;
+// blocking them cuts page weight and per-page CPU. CSS/JS stay enabled
+// because innerText only returns rendered-visible text.
+export const BLOCKED_RESOURCE_TYPES = ["image", "font", "media"] as const;
+
+export async function applyResourceBlocking(context: {
+  route?(pattern: string, handler: NaverRouteHandler): Promise<void>;
+}): Promise<void> {
+  if (context.route === undefined) {
+    return;
+  }
+  const blocked = new Set<string>(BLOCKED_RESOURCE_TYPES);
+  await context.route("**/*", (route) =>
+    blocked.has(route.request().resourceType()) ? route.abort() : route.continue(),
+  );
+}
 const ROUND_TRIP_MARKER = "왕복";
 const BLOCKED_MARKERS = ["비정상적인 접근", "captcha", "Access Denied"];
 
@@ -299,6 +325,7 @@ export class ProductionNaverBrowserFactory implements NaverBrowserPageFactory {
       contextOptions.userAgent = shared.userAgent;
     }
     const context = await shared.browser.newContext(contextOptions);
+    await applyResourceBlocking(context);
     const page = await context.newPage();
     return {
       page,

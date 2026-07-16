@@ -1,0 +1,737 @@
+{
+  "job_id": "01KXMTAXY0PWQHM8KRZVB4863M",
+  "status": "completed",
+  "created_at": "2026-07-16T06:37:59.617Z",
+  "updated_at": "2026-07-16T06:38:36.420Z",
+  "request": {
+    "origin": "PUS",
+    "destination": "SGN",
+    "months": [
+      "2026-11",
+      "2026-12",
+      "2027-01"
+    ],
+    "min_trip_days": 8,
+    "max_trip_days": 9,
+    "departure_weekdays": [
+      6
+    ],
+    "return_weekdays": [
+      0,
+      6
+    ],
+    "airline": "베트남항공"
+  },
+  "progress": {
+    "total_pairs": 26,
+    "completed_pairs": 26,
+    "failed_pairs": 0,
+    "google_ok": 26,
+    "naver_ok": 26
+  },
+  "results": [
+    {
+      "departure_date": "2026-11-21",
+      "return_date": "2026-11-28",
+      "trip_days": 8,
+      "google": {
+        "price": 566153,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-21+to+2026-11-28+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.760Z"
+      },
+      "naver": {
+        "price": 666800,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261121/SGN:airport-PUS:airport-20261128?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.818Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 566153,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-21+to+2026-11-28+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.760Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-21",
+      "return_date": "2026-11-29",
+      "trip_days": 9,
+      "google": {
+        "price": 566153,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-21+to+2026-11-29+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.912Z"
+      },
+      "naver": {
+        "price": 632000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261121/SGN:airport-PUS:airport-20261129?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.904Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 566153,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-21+to+2026-11-29+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.912Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-19",
+      "return_date": "2026-12-26",
+      "trip_days": 8,
+      "google": {
+        "price": 762400,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-19+to+2026-12-26+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.634Z"
+      },
+      "naver": {
+        "price": 580138,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261219/SGN:airport-PUS:airport-20261226?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:10.376Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 580138,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261219/SGN:airport-PUS:airport-20261226?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:10.376Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-19",
+      "return_date": "2026-12-27",
+      "trip_days": 9,
+      "google": {
+        "price": 780700,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-19+to+2026-12-27+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.730Z"
+      },
+      "naver": {
+        "price": 587032,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261219/SGN:airport-PUS:airport-20261227?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:10.517Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 587032,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261219/SGN:airport-PUS:airport-20261227?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:10.517Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-28",
+      "return_date": "2026-12-06",
+      "trip_days": 9,
+      "google": {
+        "price": 644100,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-28+to+2026-12-06+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.772Z"
+      },
+      "naver": {
+        "price": 596500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261128/SGN:airport-PUS:airport-20261206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.760Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 596500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261128/SGN:airport-PUS:airport-20261206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.760Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-05",
+      "return_date": "2026-12-13",
+      "trip_days": 9,
+      "google": {
+        "price": 610287,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-05+to+2026-12-13+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.361Z"
+      },
+      "naver": {
+        "price": 596900,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261205/SGN:airport-PUS:airport-20261213?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.792Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 596900,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261205/SGN:airport-PUS:airport-20261213?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.792Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-07",
+      "return_date": "2026-11-15",
+      "trip_days": 9,
+      "google": {
+        "price": 607553,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-07+to+2026-11-15+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.849Z"
+      },
+      "naver": {
+        "price": 630600,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261107/SGN:airport-PUS:airport-20261115?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.834Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 607553,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-07+to+2026-11-15+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.849Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-12",
+      "return_date": "2026-12-20",
+      "trip_days": 9,
+      "google": {
+        "price": 610287,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-12+to+2026-12-20+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.356Z"
+      },
+      "naver": {
+        "price": 668700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261212/SGN:airport-PUS:airport-20261220?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.840Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 610287,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-12+to+2026-12-20+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.356Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-28",
+      "return_date": "2026-12-05",
+      "trip_days": 8,
+      "google": {
+        "price": 677600,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-28+to+2026-12-05+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.747Z"
+      },
+      "naver": {
+        "price": 627000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261128/SGN:airport-PUS:airport-20261205?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.904Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 627000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261128/SGN:airport-PUS:airport-20261205?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.904Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-09",
+      "return_date": "2027-01-17",
+      "trip_days": 9,
+      "google": {
+        "price": 627823,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-09+to+2027-01-17+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:17.467Z"
+      },
+      "naver": {
+        "price": 707802,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270109/SGN:airport-PUS:airport-20270117?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:19.760Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 627823,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-09+to+2027-01-17+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:17.467Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-14",
+      "return_date": "2026-11-21",
+      "trip_days": 8,
+      "google": {
+        "price": 641353,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-14+to+2026-11-21+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.818Z"
+      },
+      "naver": {
+        "price": 689500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261114/SGN:airport-PUS:airport-20261121?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.742Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 641353,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-14+to+2026-11-21+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.818Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-14",
+      "return_date": "2026-11-22",
+      "trip_days": 9,
+      "google": {
+        "price": 641353,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-14+to+2026-11-22+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.878Z"
+      },
+      "naver": {
+        "price": 689500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261114/SGN:airport-PUS:airport-20261122?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.865Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 641353,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-14+to+2026-11-22+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.878Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-07",
+      "return_date": "2026-11-14",
+      "trip_days": 8,
+      "google": {
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-11-07+to+2026-11-14+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.818Z"
+      },
+      "naver": {
+        "price": 660400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261107/SGN:airport-PUS:airport-20261114?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.873Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 660400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261107/SGN:airport-PUS:airport-20261114?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:37:59.873Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-05",
+      "return_date": "2026-12-12",
+      "trip_days": 8,
+      "google": {
+        "price": 708000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-05+to+2026-12-12+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:08.646Z"
+      },
+      "naver": {
+        "price": 668700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261205/SGN:airport-PUS:airport-20261212?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.746Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 668700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261205/SGN:airport-PUS:airport-20261212?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.746Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-12",
+      "return_date": "2026-12-19",
+      "trip_days": 8,
+      "google": {
+        "price": 708000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-12+to+2026-12-19+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.397Z"
+      },
+      "naver": {
+        "price": 668700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261212/SGN:airport-PUS:airport-20261219?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.840Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 668700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261212/SGN:airport-PUS:airport-20261219?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.840Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-02",
+      "return_date": "2027-01-09",
+      "trip_days": 8,
+      "google": {
+        "price": 678653,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-02+to+2027-01-09+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:16.436Z"
+      },
+      "naver": {
+        "price": 767100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270102/SGN:airport-PUS:airport-20270109?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.428Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 678653,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-02+to+2027-01-09+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:16.436Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-26",
+      "return_date": "2027-01-02",
+      "trip_days": 8,
+      "google": {
+        "price": 696008,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-26+to+2027-01-02+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.635Z"
+      },
+      "naver": {
+        "price": 775500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261226/SGN:airport-PUS:airport-20270102?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:11.584Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 696008,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-26+to+2027-01-02+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.635Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-23",
+      "return_date": "2027-01-31",
+      "trip_days": 9,
+      "google": {
+        "price": 766118,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-23+to+2027-01-31+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:17.954Z"
+      },
+      "naver": {
+        "price": 733299,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270123/SGN:airport-PUS:airport-20270131?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:21.618Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 733299,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270123/SGN:airport-PUS:airport-20270131?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:21.618Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-02",
+      "return_date": "2027-01-10",
+      "trip_days": 9,
+      "google": {
+        "price": 802400,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-02+to+2027-01-10+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:16.980Z"
+      },
+      "naver": {
+        "price": 737200,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270102/SGN:airport-PUS:airport-20270110?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.480Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 737200,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270102/SGN:airport-PUS:airport-20270110?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.480Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-16",
+      "return_date": "2027-01-23",
+      "trip_days": 8,
+      "google": {
+        "price": 878979,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-16+to+2027-01-23+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:17.732Z"
+      },
+      "naver": {
+        "price": 738211,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270116/SGN:airport-PUS:airport-20270123?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:20.056Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 738211,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270116/SGN:airport-PUS:airport-20270123?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:20.056Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-16",
+      "return_date": "2027-01-24",
+      "trip_days": 9,
+      "google": {
+        "price": 766023,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-16+to+2027-01-24+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.024Z"
+      },
+      "naver": {
+        "price": 745877,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270116/SGN:airport-PUS:airport-20270124?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:20.055Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 745877,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270116/SGN:airport-PUS:airport-20270124?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:20.055Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-09",
+      "return_date": "2027-01-16",
+      "trip_days": 8,
+      "google": {
+        "price": 835600,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-09+to+2027-01-16+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:17.388Z"
+      },
+      "naver": {
+        "price": 746401,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270109/SGN:airport-PUS:airport-20270116?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.494Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 746401,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270109/SGN:airport-PUS:airport-20270116?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.494Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-23",
+      "return_date": "2027-01-30",
+      "trip_days": 8,
+      "google": {
+        "price": 925200,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-23+to+2027-01-30+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:18.010Z"
+      },
+      "naver": {
+        "price": 749959,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270123/SGN:airport-PUS:airport-20270130?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:20.261Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 749959,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270123/SGN:airport-PUS:airport-20270130?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:20.261Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-26",
+      "return_date": "2027-01-03",
+      "trip_days": 9,
+      "google": {
+        "price": 845000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2026-12-26+to+2027-01-03+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:09.678Z"
+      },
+      "naver": {
+        "price": 775500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261226/SGN:airport-PUS:airport-20270103?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:12.765Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 775500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20261226/SGN:airport-PUS:airport-20270103?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:12.765Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-30",
+      "return_date": "2027-02-07",
+      "trip_days": 9,
+      "google": {
+        "price": 897192,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-30+to+2027-02-07+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:24.264Z"
+      },
+      "naver": {
+        "price": 946694,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270130/SGN:airport-PUS:airport-20270207?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:27.634Z"
+      },
+      "best": {
+        "source": "google",
+        "price": 897192,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-30+to+2027-02-07+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:24.264Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-30",
+      "return_date": "2027-02-06",
+      "trip_days": 8,
+      "google": {
+        "price": 1112937,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+SGN+2027-01-30+to+2027-02-06+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:23.635Z"
+      },
+      "naver": {
+        "price": 939557,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270130/SGN:airport-PUS:airport-20270206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:27.507Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 939557,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-SGN:airport-20270130/SGN:airport-PUS:airport-20270206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:38:27.507Z"
+      }
+    }
+  ],
+  "errors": []
+}

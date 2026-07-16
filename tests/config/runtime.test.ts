@@ -8,9 +8,9 @@ describe("loadRuntimeConfig", () => {
   it("uses documented defaults", () => {
     expect(loadRuntimeConfig({})).toEqual({
       dataDir: "./data/jobs",
-      concurrencyPerSource: 5,
-      minDelayMs: 500,
-      maxDelayMs: 1500,
+      concurrencyPerSource: 6,
+      minDelayMs: 100,
+      maxDelayMs: 300,
       maxRetries: 3,
       retryBaseDelayMs: 1000,
       requestTimeoutMs: 30000,
@@ -23,7 +23,7 @@ describe("loadRuntimeConfig", () => {
       SEARCH_WAY_PROVIDER_CONCURRENCY: "99",
       SEARCH_WAY_MAX_RETRIES: "-1",
     })).toMatchObject({
-      concurrencyPerSource: 6,
+      concurrencyPerSource: 10,
       maxRetries: 0,
     });
   });

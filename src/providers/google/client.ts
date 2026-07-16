@@ -50,11 +50,29 @@ export interface GoogleBrowserPage {
 
 
 
+export interface GoogleBrowserRoute {
+
+  request(): { resourceType(): string };
+
+  abort(): Promise<void>;
+
+  continue(): Promise<void>;
+
+}
+
+
+
+export type GoogleRouteHandler = (route: GoogleBrowserRoute) => Promise<void> | void;
+
+
+
 export interface GoogleBrowserContext {
 
   newPage(): Promise<GoogleBrowserPage>;
 
   close(): Promise<void>;
+
+  route?(pattern: string, handler: GoogleRouteHandler): Promise<void>;
 
 }
 
@@ -91,6 +109,38 @@ export interface GoogleBrowserPageFactory {
 const TIMEOUT_MS = 120_000;
 
 const BLOCKED_MARKERS = ["unusual traffic", "g-recaptcha", "Before you continue"];
+
+
+
+// Images, fonts, and media never contribute to the HTML the parser reads;
+
+// blocking them cuts page weight and per-page CPU. CSS/JS stay enabled.
+
+export const BLOCKED_RESOURCE_TYPES = ["image", "font", "media"] as const;
+
+
+
+export async function applyResourceBlocking(context: {
+
+  route?(pattern: string, handler: GoogleRouteHandler): Promise<void>;
+
+}): Promise<void> {
+
+  if (context.route === undefined) {
+
+    return;
+
+  }
+
+  const blocked = new Set<string>(BLOCKED_RESOURCE_TYPES);
+
+  await context.route("**/*", (route) =>
+
+    blocked.has(route.request().resourceType()) ? route.abort() : route.continue(),
+
+  );
+
+}
 
 
 
@@ -409,6 +459,8 @@ export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory 
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
 
     });
+
+    await applyResourceBlocking(context);
 
     const page = await context.newPage();
 

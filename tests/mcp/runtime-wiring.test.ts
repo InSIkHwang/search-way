@@ -20,7 +20,7 @@ describe("composeProductionStack runtime wiring", () => {
       1,
       expect.objectContaining({
         source: "google",
-        concurrency: 5,
+        concurrency: 6,
         retryBaseDelayMs: 1000,
         now: expect.any(Function),
         limiterHooks: expect.any(Object),
@@ -28,7 +28,7 @@ describe("composeProductionStack runtime wiring", () => {
     );
     expect(createScheduler).toHaveBeenNthCalledWith(
       2,
-      expect.objectContaining({ source: "naver", concurrency: 5, retryBaseDelayMs: 1000 }),
+      expect.objectContaining({ source: "naver", concurrency: 6, retryBaseDelayMs: 1000 }),
     );
     expect(stack.googleProviderOptions.requestTimeoutMs).toBe(30_000);
     expect(stack.naverProviderOptions.requestTimeoutMs).toBe(30_000);

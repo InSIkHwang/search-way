@@ -1,8 +1,8 @@
 {
   "jobId": "fallback-job",
   "status": "completed",
-  "createdAt": "2026-07-16T06:18:38.716Z",
-  "updatedAt": "2026-07-16T06:18:38.792Z",
+  "createdAt": "2026-07-16T06:40:36.942Z",
+  "updatedAt": "2026-07-16T06:40:37.100Z",
   "request": {
     "origin": "ICN",
     "destination": "NRT",

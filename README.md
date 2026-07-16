@@ -35,15 +35,16 @@ Tools:
 
 ## Production defaults
 
-- Source concurrency: `5` globally per source across all jobs (`SEARCH_WAY_PROVIDER_CONCURRENCY`, clamped to 1–6; measured optimum — 6 showed no further speedup)
-- Polite delay: `500–1500ms`
+- Source concurrency: `6` globally per source across all jobs (`SEARCH_WAY_PROVIDER_CONCURRENCY`, clamped to 1–10; measured optimum — 8 ties within noise, 10 regresses)
+- Polite delay: `100–300ms` (`SEARCH_WAY_MIN_DELAY_MS`/`SEARCH_WAY_MAX_DELAY_MS`)
+- Heavy resources (images, fonts, media) are blocked per context; CSS/JS stay enabled
 - Transient retries: `3` (4 total attempts including the first call)
 - Exponential retry base: `1000ms`
 - Request timeout: `30000ms`
 - One shared browser per source; each search gets a fresh isolated context (relaunches automatically if the browser disconnects)
 - Result readiness polling: `1s` interval, ~2 minute budget, stability-based settle (returns once two consecutive reads are identical)
 
-Concurrency `5` is global per source across all jobs, not per job.
+Concurrency `6` is global per source across all jobs, not per job.
 
 Observed HTTP `429` pauses the affected source scheduler for all jobs and honors `Retry-After` when present. The other source continues. DOM-only CAPTCHA/interstitial, `403`, and `no_direct_flight` are permanent errors without synthesized status metadata.
 

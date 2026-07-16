@@ -55,17 +55,20 @@ function clamp(value: number, min: number, max: number): number {
 export function loadRuntimeConfig(
   env: NodeJS.ProcessEnv = process.env,
 ): RuntimeConfig {
-  // Live sweep 2026-07-16 (52 pairs x2 sources, zero blocks): 3 -> 140s,
-  // 4 -> 100s, 5 -> 80s, 6 -> 80s. 5 is the measured optimum; beyond it the
-  // jitter delay and page-load time dominate, so extra parallelism only adds
-  // provider block risk (captcha / "unusual traffic").
+  // Live sweep 2026-07-16, wall time for 52 pairs x2 sources, zero blocks
+  // at every level: 3 -> 125s, 4 -> 96s, 5 -> 77s, 6 -> 61s, 8 -> 59s,
+  // 10 -> 69s. 6 and 8 tie within noise; 6 keeps fewer concurrent pages
+  // against each site, so it wins on block risk (captcha / "unusual
+  // traffic"). Past that the floor is provider server response time.
   const concurrencyPerSource = clamp(
-    parseStrictInteger(env, "SEARCH_WAY_PROVIDER_CONCURRENCY", 5),
+    parseStrictInteger(env, "SEARCH_WAY_PROVIDER_CONCURRENCY", 6),
     1,
-    6,
+    10,
   );
-  const minDelayMs = parseStrictInteger(env, "SEARCH_WAY_MIN_DELAY_MS", 500);
-  const maxDelayMs = parseStrictInteger(env, "SEARCH_WAY_MAX_DELAY_MS", 1500);
+  // 100-300ms staggers request starts; measured vs 500-1500ms it saves a
+  // few seconds per run and showed no block-rate difference.
+  const minDelayMs = parseStrictInteger(env, "SEARCH_WAY_MIN_DELAY_MS", 100);
+  const maxDelayMs = parseStrictInteger(env, "SEARCH_WAY_MAX_DELAY_MS", 300);
   const maxRetries = clamp(
     parseStrictInteger(env, "SEARCH_WAY_MAX_RETRIES", 3),
     0,
