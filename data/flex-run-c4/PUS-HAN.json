@@ -1,0 +1,737 @@
+{
+  "job_id": "01KXMRV8GZDVAYPQ2C5QYV2KQ9",
+  "status": "completed",
+  "created_at": "2026-07-16T06:11:57.599Z",
+  "updated_at": "2026-07-16T06:13:33.495Z",
+  "request": {
+    "origin": "PUS",
+    "destination": "HAN",
+    "months": [
+      "2026-11",
+      "2026-12",
+      "2027-01"
+    ],
+    "min_trip_days": 8,
+    "max_trip_days": 9,
+    "departure_weekdays": [
+      6
+    ],
+    "return_weekdays": [
+      0,
+      6
+    ],
+    "airline": "베트남항공"
+  },
+  "progress": {
+    "total_pairs": 26,
+    "completed_pairs": 26,
+    "failed_pairs": 0,
+    "google_ok": 26,
+    "naver_ok": 26
+  },
+  "results": [
+    {
+      "departure_date": "2026-11-28",
+      "return_date": "2026-12-05",
+      "trip_days": 8,
+      "google": {
+        "price": 684100,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-28+to+2026-12-05+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:47.189Z"
+      },
+      "naver": {
+        "price": 643400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261128/HAN:airport-PUS:airport-20261205?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:58.426Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 643400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261128/HAN:airport-PUS:airport-20261205?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:58.426Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-28",
+      "return_date": "2026-12-06",
+      "trip_days": 9,
+      "google": {
+        "price": 684100,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-28+to+2026-12-06+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:47.522Z"
+      },
+      "naver": {
+        "price": 643400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261128/HAN:airport-PUS:airport-20261206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:58.502Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 643400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261128/HAN:airport-PUS:airport-20261206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:58.502Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-07",
+      "return_date": "2026-11-15",
+      "trip_days": 9,
+      "google": {
+        "price": 685200,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-07+to+2026-11-15+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:36.136Z"
+      },
+      "naver": {
+        "price": 644400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261107/HAN:airport-PUS:airport-20261115?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:50.629Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 644400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261107/HAN:airport-PUS:airport-20261115?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:50.629Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-14",
+      "return_date": "2026-11-21",
+      "trip_days": 8,
+      "google": {
+        "price": 707000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-14+to+2026-11-21+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:41.431Z"
+      },
+      "naver": {
+        "price": 659400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261114/HAN:airport-PUS:airport-20261121?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:50.603Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 659400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261114/HAN:airport-PUS:airport-20261121?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:50.603Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-14",
+      "return_date": "2026-11-22",
+      "trip_days": 9,
+      "google": {
+        "price": 707000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-14+to+2026-11-22+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:41.432Z"
+      },
+      "naver": {
+        "price": 659400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261114/HAN:airport-PUS:airport-20261122?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:53.600Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 659400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261114/HAN:airport-PUS:airport-20261122?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:53.600Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-21",
+      "return_date": "2026-11-29",
+      "trip_days": 9,
+      "google": {
+        "price": 707000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-21+to+2026-11-29+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:42.392Z"
+      },
+      "naver": {
+        "price": 659400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261121/HAN:airport-PUS:airport-20261129?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:55.941Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 659400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261121/HAN:airport-PUS:airport-20261129?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:55.941Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-07",
+      "return_date": "2026-11-14",
+      "trip_days": 8,
+      "google": {
+        "price": 718300,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-07+to+2026-11-14+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:35.998Z"
+      },
+      "naver": {
+        "price": 661500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261107/HAN:airport-PUS:airport-20261114?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:46.173Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 661500,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261107/HAN:airport-PUS:airport-20261114?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:46.173Z"
+      }
+    },
+    {
+      "departure_date": "2026-11-21",
+      "return_date": "2026-11-28",
+      "trip_days": 8,
+      "google": {
+        "price": 707000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-11-21+to+2026-11-28+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:41.661Z"
+      },
+      "naver": {
+        "price": 672800,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261121/HAN:airport-PUS:airport-20261128?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:53.726Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 672800,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261121/HAN:airport-PUS:airport-20261128?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:53.726Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-12",
+      "return_date": "2026-12-20",
+      "trip_days": 9,
+      "google": {
+        "price": 760500,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-12+to+2026-12-20+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:53.867Z"
+      },
+      "naver": {
+        "price": 702800,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261212/HAN:airport-PUS:airport-20261220?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:03.852Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 702800,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261212/HAN:airport-PUS:airport-20261220?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:03.852Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-05",
+      "return_date": "2026-12-12",
+      "trip_days": 8,
+      "google": {
+        "price": 760500,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-05+to+2026-12-12+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:47.653Z"
+      },
+      "naver": {
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261205/HAN:airport-PUS:airport-20261212?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:01.152Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261205/HAN:airport-PUS:airport-20261212?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:01.152Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-05",
+      "return_date": "2026-12-13",
+      "trip_days": 9,
+      "google": {
+        "price": 760500,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-05+to+2026-12-13+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:48.349Z"
+      },
+      "naver": {
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261205/HAN:airport-PUS:airport-20261213?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:02.294Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261205/HAN:airport-PUS:airport-20261213?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:02.294Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-12",
+      "return_date": "2026-12-19",
+      "trip_days": 8,
+      "google": {
+        "price": 760500,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-12+to+2026-12-19+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:53.295Z"
+      },
+      "naver": {
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261212/HAN:airport-PUS:airport-20261219?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:04.034Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 717100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261212/HAN:airport-PUS:airport-20261219?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:04.034Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-09",
+      "return_date": "2027-01-17",
+      "trip_days": 9,
+      "google": {
+        "price": 803600,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-09+to+2027-01-17+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:06.010Z"
+      },
+      "naver": {
+        "price": 738300,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270109/HAN:airport-PUS:airport-20270117?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:22.545Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 738300,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270109/HAN:airport-PUS:airport-20270117?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:22.545Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-02",
+      "return_date": "2027-01-09",
+      "trip_days": 8,
+      "google": {
+        "price": 803600,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-02+to+2027-01-09+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:59.994Z"
+      },
+      "naver": {
+        "price": 753400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270102/HAN:airport-PUS:airport-20270109?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:16.949Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 753400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270102/HAN:airport-PUS:airport-20270109?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:16.949Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-02",
+      "return_date": "2027-01-10",
+      "trip_days": 9,
+      "google": {
+        "price": 803600,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-02+to+2027-01-10+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:01.927Z"
+      },
+      "naver": {
+        "price": 753400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270102/HAN:airport-PUS:airport-20270110?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:17.583Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 753400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270102/HAN:airport-PUS:airport-20270110?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:17.583Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-09",
+      "return_date": "2027-01-16",
+      "trip_days": 8,
+      "google": {
+        "price": 803600,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-09+to+2027-01-16+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:05.199Z"
+      },
+      "naver": {
+        "price": 753400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270109/HAN:airport-PUS:airport-20270116?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:20.174Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 753400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270109/HAN:airport-PUS:airport-20270116?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:20.174Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-19",
+      "return_date": "2026-12-26",
+      "trip_days": 8,
+      "google": {
+        "price": 847500,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-19+to+2026-12-26+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:54.004Z"
+      },
+      "naver": {
+        "price": 780900,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261219/HAN:airport-PUS:airport-20261226?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:09.919Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 780900,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261219/HAN:airport-PUS:airport-20261226?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:09.919Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-19",
+      "return_date": "2026-12-27",
+      "trip_days": 9,
+      "google": {
+        "price": 880300,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-19+to+2026-12-27+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:55.293Z"
+      },
+      "naver": {
+        "price": 781190,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261219/HAN:airport-PUS:airport-20261227?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:10.746Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 781190,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261219/HAN:airport-PUS:airport-20261227?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:10.746Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-26",
+      "return_date": "2027-01-02",
+      "trip_days": 8,
+      "google": {
+        "price": 851000,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-26+to+2027-01-02+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:12:59.004Z"
+      },
+      "naver": {
+        "price": 810700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261226/HAN:airport-PUS:airport-20270102?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:12.051Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 810700,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261226/HAN:airport-PUS:airport-20270102?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:12.051Z"
+      }
+    },
+    {
+      "departure_date": "2026-12-26",
+      "return_date": "2027-01-03",
+      "trip_days": 9,
+      "google": {
+        "price": 884100,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2026-12-26+to+2027-01-03+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:00.120Z"
+      },
+      "naver": {
+        "price": 827400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261226/HAN:airport-PUS:airport-20270103?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:12.403Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 827400,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20261226/HAN:airport-PUS:airport-20270103?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:12.403Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-16",
+      "return_date": "2027-01-23",
+      "trip_days": 8,
+      "google": {
+        "price": 892400,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-16+to+2027-01-23+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:07.067Z"
+      },
+      "naver": {
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270116/HAN:airport-PUS:airport-20270123?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:22.297Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270116/HAN:airport-PUS:airport-20270123?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:22.297Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-16",
+      "return_date": "2027-01-24",
+      "trip_days": 9,
+      "google": {
+        "price": 892400,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-16+to+2027-01-24+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:09.022Z"
+      },
+      "naver": {
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270116/HAN:airport-PUS:airport-20270124?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:22.386Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270116/HAN:airport-PUS:airport-20270124?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:22.386Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-23",
+      "return_date": "2027-01-30",
+      "trip_days": 8,
+      "google": {
+        "price": 892400,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-23+to+2027-01-30+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:11.336Z"
+      },
+      "naver": {
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270123/HAN:airport-PUS:airport-20270130?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:25.458Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270123/HAN:airport-PUS:airport-20270130?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:25.458Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-23",
+      "return_date": "2027-01-31",
+      "trip_days": 9,
+      "google": {
+        "price": 892400,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-23+to+2027-01-31+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:11.833Z"
+      },
+      "naver": {
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270123/HAN:airport-PUS:airport-20270131?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:27.739Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 835100,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270123/HAN:airport-PUS:airport-20270131?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:27.739Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-30",
+      "return_date": "2027-02-06",
+      "trip_days": 8,
+      "google": {
+        "price": 1042800,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-30+to+2027-02-06+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:13.278Z"
+      },
+      "naver": {
+        "price": 988000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270130/HAN:airport-PUS:airport-20270206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:27.044Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 988000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270130/HAN:airport-PUS:airport-20270206?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:27.044Z"
+      }
+    },
+    {
+      "departure_date": "2027-01-30",
+      "return_date": "2027-02-07",
+      "trip_days": 9,
+      "google": {
+        "price": 1042800,
+        "currency": "KRW",
+        "url": "https://www.google.com/travel/flights/search?q=PUS+to+HAN+2027-01-30+to+2027-02-07+direct&curr=KRW&hl=ko",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:15.310Z"
+      },
+      "naver": {
+        "price": 988000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270130/HAN:airport-PUS:airport-20270207?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:29.631Z"
+      },
+      "best": {
+        "source": "naver",
+        "price": 988000,
+        "currency": "KRW",
+        "url": "https://flight.naver.com/flights/international/PUS:airport-HAN:airport-20270130/HAN:airport-PUS:airport-20270207?adult=1&isDirect=true&fareType=Y",
+        "airline": "베트남항공",
+        "scraped_at": "2026-07-16T06:13:29.631Z"
+      }
+    }
+  ],
+  "errors": []
+}

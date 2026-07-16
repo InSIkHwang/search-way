@@ -1,0 +1,152 @@
+{
+  "jobId": "fallback-job",
+  "status": "completed",
+  "createdAt": "2026-07-16T06:18:38.716Z",
+  "updatedAt": "2026-07-16T06:18:38.792Z",
+  "request": {
+    "origin": "ICN",
+    "destination": "NRT",
+    "months": [
+      "2026-10"
+    ],
+    "minTripDays": 5,
+    "maxTripDays": 5,
+    "departureWeekdays": [
+      4
+    ],
+    "returnWeekdays": [
+      1
+    ]
+  },
+  "progress": {
+    "totalPairs": 5,
+    "completedPairs": 5,
+    "failedPairs": 0,
+    "googleOk": 5,
+    "naverOk": 5
+  },
+  "results": [
+    {
+      "departureDate": "2026-10-01",
+      "returnDate": "2026-10-05",
+      "tripDays": 5,
+      "google": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "naver": {
+        "price": 2,
+        "currency": "KRW",
+        "url": "https://example.test/2",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "best": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z",
+        "source": "google"
+      }
+    },
+    {
+      "departureDate": "2026-10-08",
+      "returnDate": "2026-10-12",
+      "tripDays": 5,
+      "google": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "naver": {
+        "price": 2,
+        "currency": "KRW",
+        "url": "https://example.test/2",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "best": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z",
+        "source": "google"
+      }
+    },
+    {
+      "departureDate": "2026-10-15",
+      "returnDate": "2026-10-19",
+      "tripDays": 5,
+      "google": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "naver": {
+        "price": 2,
+        "currency": "KRW",
+        "url": "https://example.test/2",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "best": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z",
+        "source": "google"
+      }
+    },
+    {
+      "departureDate": "2026-10-22",
+      "returnDate": "2026-10-26",
+      "tripDays": 5,
+      "google": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "naver": {
+        "price": 2,
+        "currency": "KRW",
+        "url": "https://example.test/2",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "best": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z",
+        "source": "google"
+      }
+    },
+    {
+      "departureDate": "2026-10-29",
+      "returnDate": "2026-11-02",
+      "tripDays": 5,
+      "google": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "naver": {
+        "price": 2,
+        "currency": "KRW",
+        "url": "https://example.test/2",
+        "scrapedAt": "2026-07-14T00:00:00.000Z"
+      },
+      "best": {
+        "price": 1,
+        "currency": "KRW",
+        "url": "https://example.test",
+        "scrapedAt": "2026-07-14T00:00:00.000Z",
+        "source": "google"
+      }
+    }
+  ],
+  "errors": [],
+  "cancellationRequested": false
+}

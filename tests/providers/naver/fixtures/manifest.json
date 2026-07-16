@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "source": "naver",
+  "finalCaseSource": "docs/spikes/2026-07-14-naver-findings.md#final_case",
+  "request": {
+    "origin": "ICN",
+    "destination": "NRT",
+    "departureDate": "2026-10-08",
+    "returnDate": "2026-10-12",
+    "tripDays": 5,
+    "roundTrip": true,
+    "adults": 1,
+    "cabin": "economy",
+    "directOnly": true
+  },
+  "fixtures": {
+    "provenanceDirectRoundTrip": {
+      "file": "direct-round-trip.html",
+      "provenance": "recorded",
+      "finalCase": true
+    },
+    "syntheticMultipleDirect": {
+      "file": "synthetic-multiple-direct.html",
+      "provenance": "synthetic",
+      "purpose": "min_selection"
+    },
+    "syntheticWithoutAirline": {
+      "file": "synthetic-without-airline.html",
+      "provenance": "synthetic",
+      "purpose": "optional_airline"
+    },
+    "noDirectFlight": {
+      "file": "no-direct-flight.html",
+      "provenance": "synthetic",
+      "purpose": "no_direct_flight"
+    },
+    "malformedResponse": {
+      "file": "malformed-response.html",
+      "provenance": "synthetic",
+      "purpose": "malformed_response"
+    }
+  },
+  "sanitized": true
+}

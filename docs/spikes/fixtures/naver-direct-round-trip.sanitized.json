@@ -1,0 +1,83 @@
+{
+  "provider": "naver",
+  "mode": "playwright",
+  "final_case": {
+    "origin": "ICN",
+    "destination": "NRT",
+    "departure_date": "2026-10-08",
+    "return_date": "2026-10-12",
+    "adults": 1,
+    "cabin": "economy",
+    "trip_type": "round_trip",
+    "nonstop": true
+  },
+  "url_recipe": {
+    "status": "verified",
+    "url_origin": "https://flight.naver.com",
+    "pathname_recipe": "/flights/international/{origin}:airport-{destination}:airport-{departureYYYYMMDD}/{destination}:airport-{origin}:airport-{returnYYYYMMDD}",
+    "bindings": {
+      "origin": {
+        "location": "path",
+        "key_or_segment": "ICN:airport",
+        "captured_value": "ICN"
+      },
+      "destination": {
+        "location": "path",
+        "key_or_segment": "NRT:airport",
+        "captured_value": "NRT"
+      },
+      "departure_date": {
+        "location": "path",
+        "key_or_segment": "20261008",
+        "captured_value": "2026-10-08"
+      },
+      "return_date": {
+        "location": "path",
+        "key_or_segment": "20261012",
+        "captured_value": "2026-10-12"
+      },
+      "trip_type": {
+        "location": "path",
+        "key_or_segment": "outbound/return segments",
+        "captured_value": "round_trip"
+      },
+      "nonstop": {
+        "location": "query",
+        "key_or_segment": "isDirect",
+        "captured_value": "true"
+      },
+      "adults": {
+        "location": "query",
+        "key_or_segment": "adult",
+        "captured_value": "1"
+      },
+      "cabin": {
+        "location": "query",
+        "key_or_segment": "fareType",
+        "captured_value": "Y"
+      }
+    },
+    "example_url": "https://flight.naver.com/flights/international/ICN:airport-NRT:airport-20261008/NRT:airport-ICN:airport-20261012?adult=1&isDirect=true&fareType=Y",
+    "evidence": [
+      "Headed Chrome capture 2026-07-14 loaded round-trip direct results from canonical airport-segment URL",
+      "UI showed 왕복, 10.08.목, 10.12.월, and direct round-trip KRW price rows"
+    ]
+  },
+  "page": {
+    "url": "https://flight.naver.com/flights/international/ICN:airport-NRT:airport-20261008/NRT:airport-ICN:airport-20261012?adult=1&isDirect=true&fareType=Y",
+    "readyText": "직항",
+    "roundTripMarker": "왕복",
+    "directText": "직항",
+    "currencySuffix": "원",
+    "dateMarkers": ["10.08.목", "10.12.월"],
+    "launch": {
+      "headless": false,
+      "channel": "chrome"
+    }
+  },
+  "sample": {
+    "directText": "직항",
+    "priceText": "367388",
+    "href": "https://flight.naver.com/flights/international/ICN:airport-NRT:airport-20261008/NRT:airport-ICN:airport-20261012?adult=1&isDirect=true&fareType=Y"
+  }
+}

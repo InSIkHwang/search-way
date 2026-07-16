@@ -1,0 +1,38 @@
+{
+  "provider": "google",
+  "mode": "playwright",
+  "final_case": {
+    "origin": "ICN",
+    "destination": "NRT",
+    "departure_date": "2026-10-08",
+    "return_date": "2026-10-12",
+    "adults": 1,
+    "cabin": "economy",
+    "trip_type": "round_trip",
+    "nonstop": true
+  },
+  "url_recipe": {
+    "status": "unavailable",
+    "reason": "Captured official search URL encodes origin, destination, round-trip dates, and passenger cabin via protobuf tfs query parameters, but the nonstop-only filter is not represented as a stable query binding in the captured URL. Nonstop evidence comes from rendered result rows, not from a verified URL parameter.",
+    "evidence": [
+      "Final result URL: https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTAtMDhqBRIDSUNOcgUSA05SVBoaEgoyMDI2LTEwLTEyagUSA05SVHIFEgNJQ05AAUgBmAEB&hl=ko&curr=KRW&gl=KR",
+      "Decoded tfs body contains ICN, NRT, 2026-10-08, 2026-10-12 in protobuf capture at ${TEMP}/search-way-phase0/google/google.har",
+      "No nonstop/stops query key observed in captured URL; all rendered rows show 직항 in DOM capture"
+    ]
+  },
+  "page": {
+    "url": "https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTAtMDhqBRIDSUNOcgUSA05SVBoaEgoyMDI2LTEwLTEyagUSA05SVHIFEgNJQ05AAUgBmAEB&hl=ko&curr=KRW&gl=KR",
+    "readySelector": "li.pIav2d",
+    "rowSelector": "li.pIav2d",
+    "directSelector": "span.VG3hNb",
+    "directText": "직항",
+    "priceSelector": "span[aria-label*=\"대한민국 원\"]",
+    "currencyToken": "대한민국 원",
+    "linkSelector": "li.pIav2d"
+  },
+  "sample": {
+    "directText": "직항",
+    "priceText": "₩417,629",
+    "href": "https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTAtMDhqBRIDSUNOcgUSA05SVBoaEgoyMDI2LTEwLTEyagUSA05SVHIFEgNJQ05AAUgBmAEB&hl=ko&curr=KRW&gl=KR"
+  }
+}
