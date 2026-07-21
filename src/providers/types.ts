@@ -18,5 +18,8 @@ export interface ProviderSearchInput extends DatePair {
 
 export interface FlightProvider {
   readonly id: ProviderId;
-  findDirectRoundTrip(input: ProviderSearchInput): Promise<Quote>;
+  findDirectRoundTrip(
+    input: ProviderSearchInput,
+    signal?: AbortSignal,
+  ): Promise<Quote>;
 }

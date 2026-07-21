@@ -8,6 +8,9 @@ export interface RuntimeConfig {
   maxRetries: number;
   retryBaseDelayMs: number;
   requestTimeoutMs: number;
+  taskDeadlineMs: number;
+  taskKillGraceMs: number;
+  stallTimeoutMs: number;
   naverHeadless: boolean;
 }
 
@@ -84,6 +87,24 @@ export function loadRuntimeConfig(
     "SEARCH_WAY_REQUEST_TIMEOUT_MS",
     30_000,
   );
+  // Hard per-attempt scheduler deadline. Must exceed requestTimeoutMs so the
+  // provider-level abort fires first; the deadline only catches paths the
+  // 30s abort cannot reach (createPage / hung Playwright protocol calls).
+  const taskDeadlineMs = parseStrictInteger(
+    env,
+    "SEARCH_WAY_TASK_DEADLINE_MS",
+    requestTimeoutMs + 15_000,
+  );
+  const taskKillGraceMs = parseStrictInteger(
+    env,
+    "SEARCH_WAY_TASK_KILL_GRACE_MS",
+    10_000,
+  );
+  const stallTimeoutMs = parseStrictInteger(
+    env,
+    "SEARCH_WAY_STALL_TIMEOUT_MS",
+    600_000,
+  );
   const dataDir = env.SEARCH_WAY_DATA_DIR ?? "./data/jobs";
   const naverHeadless = parseBooleanFlag(env, "SEARCH_WAY_NAVER_HEADLESS", false);
 
@@ -99,6 +120,17 @@ export function loadRuntimeConfig(
   if (requestTimeoutMs <= 0) {
     throw new RangeError("SEARCH_WAY_REQUEST_TIMEOUT_MS must be positive");
   }
+  if (taskDeadlineMs <= requestTimeoutMs) {
+    throw new RangeError(
+      "SEARCH_WAY_TASK_DEADLINE_MS must be greater than SEARCH_WAY_REQUEST_TIMEOUT_MS",
+    );
+  }
+  if (taskKillGraceMs <= 0) {
+    throw new RangeError("SEARCH_WAY_TASK_KILL_GRACE_MS must be positive");
+  }
+  if (stallTimeoutMs <= 0) {
+    throw new RangeError("SEARCH_WAY_STALL_TIMEOUT_MS must be positive");
+  }
 
   return {
     dataDir,
@@ -108,6 +140,9 @@ export function loadRuntimeConfig(
     maxRetries,
     retryBaseDelayMs,
     requestTimeoutMs,
+    taskDeadlineMs,
+    taskKillGraceMs,
+    stallTimeoutMs,
     naverHeadless,
   };
 }

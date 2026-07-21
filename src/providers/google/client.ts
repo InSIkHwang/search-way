@@ -100,7 +100,9 @@ export type GoogleBrowserLaunch = (
 
 export interface GoogleBrowserPageFactory {
 
-  createPage(): Promise<{ page: GoogleBrowserPage; cleanup: () => Promise<void> }>;
+  createPage(
+    signal?: AbortSignal,
+  ): Promise<{ page: GoogleBrowserPage; cleanup: () => Promise<void> }>;
 
 }
 
@@ -282,13 +284,91 @@ function sleep(milliseconds: number): Promise<void> {
 
 
 
+function abortError(): Error {
+
+  return Object.assign(new Error("Aborted"), { name: "AbortError" });
+
+}
+
+
+
 function throwIfAborted(signal?: AbortSignal): void {
 
   if (signal?.aborted) {
 
-    throw Object.assign(new Error("Aborted"), { name: "AbortError" });
+    throw abortError();
 
   }
+
+}
+
+
+
+// Playwright calls (launch/newContext/newPage/goto/content) can block at the
+
+// protocol level with no AbortSignal support. raceAbort turns an abort into an
+
+// immediate rejection and disposes the late-arriving resource so it cannot
+
+// leak or hold a scheduler slot.
+
+async function raceAbort<T>(
+
+  promise: Promise<T>,
+
+  signal: AbortSignal | undefined,
+
+  disposeOrphan: (value: T) => void,
+
+): Promise<T> {
+
+  if (signal === undefined) {
+
+    return promise;
+
+  }
+
+  if (signal.aborted) {
+
+    promise.then(disposeOrphan, () => undefined);
+
+    throw abortError();
+
+  }
+
+  return await new Promise<T>((resolve, reject) => {
+
+    const onAbort = () => {
+
+      promise.then(disposeOrphan, () => undefined);
+
+      reject(abortError());
+
+    };
+
+    signal.addEventListener("abort", onAbort, { once: true });
+
+    promise.then(
+
+      (value) => {
+
+        signal.removeEventListener("abort", onAbort);
+
+        resolve(value);
+
+      },
+
+      (error) => {
+
+        signal.removeEventListener("abort", onAbort);
+
+        reject(error);
+
+      },
+
+    );
+
+  });
 
 }
 
@@ -376,6 +456,10 @@ async function waitForReadyHtml(
 
 
 
+const DEFAULT_LAUNCH_TIMEOUT_MS = 60_000;
+
+
+
 export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory {
 
   private shared: Promise<GoogleBrowser> | null = null;
@@ -388,9 +472,63 @@ export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory 
 
       env?: NodeJS.ProcessEnv;
 
+      launchTimeoutMs?: number;
+
     },
 
   ) {}
+
+
+
+  // A wedged Chromium launch must fail (and reset the shared slot) instead of
+
+  // hanging every task that waits on it.
+
+  private launchWithDeadline(): Promise<GoogleBrowser> {
+
+    const timeoutMs = this.deps.launchTimeoutMs ?? DEFAULT_LAUNCH_TIMEOUT_MS;
+
+    const launched = this.deps.launch({ headless: true });
+
+    return new Promise<GoogleBrowser>((resolve, reject) => {
+
+      const timer = setTimeout(() => {
+
+        launched.then(
+
+          (browser) => void browser.close().catch(() => undefined),
+
+          () => undefined,
+
+        );
+
+        reject(new Error("Google browser launch timed out"));
+
+      }, timeoutMs);
+
+      launched.then(
+
+        (browser) => {
+
+          clearTimeout(timer);
+
+          resolve(browser);
+
+        },
+
+        (error) => {
+
+          clearTimeout(timer);
+
+          reject(error);
+
+        },
+
+      );
+
+    });
+
+  }
 
 
 
@@ -418,7 +556,7 @@ export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory 
 
     }
 
-    const launchPromise = this.deps.launch({ headless: true });
+    const launchPromise = this.launchWithDeadline();
 
     this.shared = launchPromise;
 
@@ -442,41 +580,81 @@ export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory 
 
 
 
-  async createPage(): Promise<{ page: GoogleBrowserPage; cleanup: () => Promise<void> }> {
+  async createPage(
+
+    signal?: AbortSignal,
+
+  ): Promise<{ page: GoogleBrowserPage; cleanup: () => Promise<void> }> {
 
     assertProductionBrowserAllowed(this.deps.env ?? process.env);
 
+    throwIfAborted(signal);
+
+    // The shared browser is not raced against the per-task signal: one task's
+
+    // abort must not tear down the launch other tasks are waiting on.
+
     const browser = await this.acquireBrowser();
 
-    const context = await browser.newContext({
+    throwIfAborted(signal);
 
-      locale: "ko-KR",
+    const context = await raceAbort(
 
-      timezoneId: "Asia/Seoul",
+      browser.newContext({
 
-      userAgent:
+        locale: "ko-KR",
 
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        timezoneId: "Asia/Seoul",
 
-    });
+        userAgent:
 
-    await applyResourceBlocking(context);
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
 
-    const page = await context.newPage();
+      }),
 
-    return {
+      signal,
 
-      page,
+      (orphan) => void orphan.close().catch(() => undefined),
 
-      cleanup: async () => {
+    );
 
-        await page.close().catch(() => undefined);
+    try {
 
-        await context.close().catch(() => undefined);
+      await applyResourceBlocking(context);
 
-      },
+      const page = await raceAbort(
 
-    };
+        context.newPage(),
+
+        signal,
+
+        (orphan) => void orphan.close().catch(() => undefined),
+
+      );
+
+      throwIfAborted(signal);
+
+      return {
+
+        page,
+
+        cleanup: async () => {
+
+          await page.close().catch(() => undefined);
+
+          await context.close().catch(() => undefined);
+
+        },
+
+      };
+
+    } catch (error) {
+
+      await context.close().catch(() => undefined);
+
+      throw error;
+
+    }
 
   }
 
@@ -534,17 +712,43 @@ export class PlaywrightGoogleClient implements SourceClient {
 
     const scrapedAt = new Date().toISOString();
 
-    const { page, cleanup } = await this.factory.createPage();
+    const { page, cleanup } = await this.factory.createPage(signal);
+
+
+
+    // Playwright's goto/content ignore AbortSignal; closing the page is the
+
+    // only reliable way to reject their pending protocol calls on abort.
+
+    let cleanedUp = false;
+
+    const runCleanup = async () => {
+
+      if (cleanedUp) {
+
+        return;
+
+      }
+
+      cleanedUp = true;
+
+      await cleanup();
+
+    };
+
+    const onAbort = () => {
+
+      void runCleanup();
+
+    };
+
+    signal?.addEventListener("abort", onAbort, { once: true });
 
 
 
     try {
 
-      if (signal?.aborted) {
-
-        throw Object.assign(new Error("Aborted"), { name: "AbortError" });
-
-      }
+      throwIfAborted(signal);
 
 
 
@@ -560,6 +764,8 @@ export class PlaywrightGoogleClient implements SourceClient {
 
       });
 
+      throwIfAborted(signal);
+
 
 
       const rawHtml = await waitForReadyHtml(page, this.polling, signal);
@@ -569,6 +775,12 @@ export class PlaywrightGoogleClient implements SourceClient {
       return { body, scrapedAt };
 
     } catch (error) {
+
+      if (signal?.aborted === true && !(error instanceof ProviderFailure)) {
+
+        throw abortError();
+
+      }
 
       if (error instanceof ProviderFailure) {
 
@@ -594,7 +806,9 @@ export class PlaywrightGoogleClient implements SourceClient {
 
     } finally {
 
-      await cleanup();
+      signal?.removeEventListener("abort", onAbort);
+
+      await runCleanup();
 
     }
 

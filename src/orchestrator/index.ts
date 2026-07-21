@@ -46,6 +46,8 @@ interface Runtime {
   run: Promise<void>;
   settled: boolean;
   settledAt: number | null;
+  /** Aborting this force-stops the job's in-flight provider tasks. */
+  abort: AbortController;
 }
 
 export function createSearchOrchestrator(
@@ -73,6 +75,10 @@ export function createSearchOrchestrator(
       retryBaseDelayMs: config.retryBaseDelayMs,
       retryPolicy: config.retryPolicy,
       limiterHooks: config.limiterHooks,
+      taskDeadlineMs: config.taskDeadlineMs,
+      taskKillGraceMs: config.taskKillGraceMs,
+      setTimeout: config.setTimeoutFn,
+      clearTimeout: config.clearTimeoutFn,
     });
 
   const schedulers = dependencies.schedulers ?? {
@@ -88,6 +94,7 @@ export function createSearchOrchestrator(
       if (runtime.fatal === null) {
         runtime.fatal = error;
       }
+      runtime.abort.abort();
       throw error;
     }
   }
@@ -146,7 +153,52 @@ export function createSearchOrchestrator(
 
       const token = {
         shouldStop: () => runtime.cancellationRequested || runtime.fatal !== null,
+        signal: runtime.abort.signal,
       };
+
+      // Watchdog: with hard task deadlines a healthy job always makes some
+      // progress; a long silent stretch means something slipped past every
+      // guard, so fail the job and abort its in-flight work instead of
+      // letting it pin scheduler slots indefinitely.
+      let lastProgressMs = Date.parse(config.now());
+      let watchdogTimer: ReturnType<typeof globalThis.setTimeout> | null = null;
+      let watchdogStopped = false;
+      const stopWatchdog = () => {
+        watchdogStopped = true;
+        if (watchdogTimer !== null) {
+          config.clearTimeoutFn(watchdogTimer);
+          watchdogTimer = null;
+        }
+      };
+      const watchdogCheck = () => {
+        if (watchdogStopped) {
+          return;
+        }
+        if (Date.parse(config.now()) - lastProgressMs >= config.stallTimeoutMs) {
+          runtime.cancellationRequested = true;
+          runtime.abort.abort();
+          void dependencies.store
+            .update(jobId, (current) => {
+              if (
+                current.status === "completed" ||
+                current.status === "failed" ||
+                current.status === "cancelled"
+              ) {
+                return current;
+              }
+              return {
+                ...current,
+                status: "failed",
+                failureReason: "stalled",
+                updatedAt: config.now(),
+              };
+            })
+            .catch(() => undefined);
+          return;
+        }
+        watchdogTimer = config.setTimeoutFn(watchdogCheck, config.stallCheckIntervalMs);
+      };
+      watchdogTimer = config.setTimeoutFn(watchdogCheck, config.stallCheckIntervalMs);
 
       const pairPromises = pairs.map(async (pair) => {
         const input = {
@@ -156,8 +208,14 @@ export function createSearchOrchestrator(
           ...(request.airline === undefined ? {} : { airline: request.airline }),
         };
         const [googleOutcome, naverOutcome] = await Promise.all([
-          schedulers.google.add(() => dependencies.google.findDirectRoundTrip(input), token),
-          schedulers.naver.add(() => dependencies.naver.findDirectRoundTrip(input), token),
+          schedulers.google.add(
+            (signal) => dependencies.google.findDirectRoundTrip(input, signal),
+            token,
+          ),
+          schedulers.naver.add(
+            (signal) => dependencies.naver.findDirectRoundTrip(input, signal),
+            token,
+          ),
         ]);
 
         const googleCell = queueOutcomeToCell(googleOutcome, pair, config.now());
@@ -191,9 +249,14 @@ export function createSearchOrchestrator(
             };
           }),
         );
+        lastProgressMs = Date.parse(config.now());
       });
 
-      await Promise.all(pairPromises);
+      try {
+        await Promise.all(pairPromises);
+      } finally {
+        stopWatchdog();
+      }
 
       await persist(runtime, () =>
         dependencies.store.update(jobId, (current) => {
@@ -267,6 +330,7 @@ export function createSearchOrchestrator(
         run: Promise.resolve(),
         settled: false,
         settledAt: null,
+        abort: new AbortController(),
       };
 
       runtime.run = Promise.resolve().then(() =>
@@ -296,6 +360,9 @@ export function createSearchOrchestrator(
       const runtime = runtimes.get(jobId);
       if (runtime) {
         runtime.cancellationRequested = true;
+        // Force-abort in-flight provider tasks so their scheduler slots are
+        // returned immediately instead of waiting for a hung task to settle.
+        runtime.abort.abort();
       }
       return dependencies.store.update(jobId, (current) => {
         if (

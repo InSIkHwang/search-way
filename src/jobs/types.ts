@@ -52,5 +52,5 @@ export interface SearchJob {
   results: SearchResultRow[];
   errors: JobError[];
   cancellationRequested: boolean;
-  failureReason?: "interrupted" | "store_error" | "startup_error";
+  failureReason?: "interrupted" | "store_error" | "startup_error" | "stalled";
 }

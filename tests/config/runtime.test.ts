@@ -14,8 +14,23 @@ describe("loadRuntimeConfig", () => {
       maxRetries: 3,
       retryBaseDelayMs: 1000,
       requestTimeoutMs: 30000,
+      taskDeadlineMs: 45000,
+      taskKillGraceMs: 10000,
+      stallTimeoutMs: 600000,
       naverHeadless: false,
     });
+  });
+
+  it("derives the task deadline from a custom request timeout", () => {
+    expect(loadRuntimeConfig({
+      SEARCH_WAY_REQUEST_TIMEOUT_MS: "20000",
+    }).taskDeadlineMs).toBe(35000);
+  });
+
+  it("rejects a task deadline at or below the request timeout", () => {
+    expect(() => loadRuntimeConfig({
+      SEARCH_WAY_TASK_DEADLINE_MS: "30000",
+    })).toThrow("SEARCH_WAY_TASK_DEADLINE_MS");
   });
 
   it("clamps concurrency and retries", () => {

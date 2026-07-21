@@ -49,7 +49,9 @@ export type NaverBrowserLaunch = (
 ) => Promise<NaverBrowser>;
 
 export interface NaverBrowserPageFactory {
-  createPage(): Promise<{ page: NaverBrowserPage; cleanup: () => Promise<void> }>;
+  createPage(
+    signal?: AbortSignal,
+  ): Promise<{ page: NaverBrowserPage; cleanup: () => Promise<void> }>;
 }
 
 const TIMEOUT_MS = 120_000;
@@ -176,10 +178,49 @@ function sleep(milliseconds: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
+function abortError(): Error {
+  return Object.assign(new Error("Aborted"), { name: "AbortError" });
+}
+
 function throwIfAborted(signal?: AbortSignal): void {
   if (signal?.aborted) {
-    throw Object.assign(new Error("Aborted"), { name: "AbortError" });
+    throw abortError();
   }
+}
+
+// Playwright calls (launch/newContext/newPage/goto/innerText) can block at the
+// protocol level with no AbortSignal support. raceAbort turns an abort into an
+// immediate rejection and disposes the late-arriving resource so it cannot
+// leak or hold a scheduler slot.
+async function raceAbort<T>(
+  promise: Promise<T>,
+  signal: AbortSignal | undefined,
+  disposeOrphan: (value: T) => void,
+): Promise<T> {
+  if (signal === undefined) {
+    return promise;
+  }
+  if (signal.aborted) {
+    promise.then(disposeOrphan, () => undefined);
+    throw abortError();
+  }
+  return await new Promise<T>((resolve, reject) => {
+    const onAbort = () => {
+      promise.then(disposeOrphan, () => undefined);
+      reject(abortError());
+    };
+    signal.addEventListener("abort", onAbort, { once: true });
+    promise.then(
+      (value) => {
+        signal.removeEventListener("abort", onAbort);
+        resolve(value);
+      },
+      (error) => {
+        signal.removeEventListener("abort", onAbort);
+        reject(error);
+      },
+    );
+  });
 }
 
 async function settleReadyBody(
@@ -255,6 +296,8 @@ interface SharedNaverBrowser {
   userAgent: string | null;
 }
 
+const DEFAULT_LAUNCH_TIMEOUT_MS = 60_000;
+
 export class ProductionNaverBrowserFactory implements NaverBrowserPageFactory {
   private shared: Promise<SharedNaverBrowser> | null = null;
 
@@ -263,8 +306,36 @@ export class ProductionNaverBrowserFactory implements NaverBrowserPageFactory {
       launch: NaverBrowserLaunch;
       env?: NodeJS.ProcessEnv;
       headless?: boolean;
+      launchTimeoutMs?: number;
     },
   ) {}
+
+  // A wedged Chrome launch must fail (and reset the shared slot) instead of
+  // hanging every task that waits on it.
+  private withLaunchDeadline(
+    launched: Promise<SharedNaverBrowser>,
+  ): Promise<SharedNaverBrowser> {
+    const timeoutMs = this.deps.launchTimeoutMs ?? DEFAULT_LAUNCH_TIMEOUT_MS;
+    return new Promise<SharedNaverBrowser>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        launched.then(
+          (shared) => void shared.browser.close().catch(() => undefined),
+          () => undefined,
+        );
+        reject(new Error("Naver browser launch timed out"));
+      }, timeoutMs);
+      launched.then(
+        (shared) => {
+          clearTimeout(timer);
+          resolve(shared);
+        },
+        (error) => {
+          clearTimeout(timer);
+          reject(error);
+        },
+      );
+    });
+  }
 
   private resolveHeadless(): boolean {
     return (
@@ -287,20 +358,22 @@ export class ProductionNaverBrowserFactory implements NaverBrowserPageFactory {
       this.shared = null;
     }
 
-    const launchPromise = (async (): Promise<SharedNaverBrowser> => {
-      const browser = await this.deps.launch(
-        resolveNaverBrowserLaunchOptions(headless),
-      );
-      // The "HeadlessChrome" UA token is what Naver keys on to withhold
-      // search results; strip it so headless sessions match headed Chrome.
-      const userAgent = headless
-        ? await readBrowserUserAgent(browser)
-        : null;
-      return {
-        browser,
-        userAgent: userAgent === null ? null : sanitizeHeadlessUserAgent(userAgent),
-      };
-    })();
+    const launchPromise = this.withLaunchDeadline(
+      (async (): Promise<SharedNaverBrowser> => {
+        const browser = await this.deps.launch(
+          resolveNaverBrowserLaunchOptions(headless),
+        );
+        // The "HeadlessChrome" UA token is what Naver keys on to withhold
+        // search results; strip it so headless sessions match headed Chrome.
+        const userAgent = headless
+          ? await readBrowserUserAgent(browser)
+          : null;
+        return {
+          browser,
+          userAgent: userAgent === null ? null : sanitizeHeadlessUserAgent(userAgent),
+        };
+      })(),
+    );
     this.shared = launchPromise;
     try {
       return await launchPromise;
@@ -312,10 +385,16 @@ export class ProductionNaverBrowserFactory implements NaverBrowserPageFactory {
     }
   }
 
-  async createPage(): Promise<{ page: NaverBrowserPage; cleanup: () => Promise<void> }> {
+  async createPage(
+    signal?: AbortSignal,
+  ): Promise<{ page: NaverBrowserPage; cleanup: () => Promise<void> }> {
     assertProductionBrowserAllowed(this.deps.env ?? process.env);
+    throwIfAborted(signal);
     const headless = this.resolveHeadless();
+    // The shared browser is not raced against the per-task signal: one task's
+    // abort must not tear down the launch other tasks are waiting on.
     const shared = await this.acquireBrowser(headless);
+    throwIfAborted(signal);
     const contextOptions: Record<string, unknown> = {
       locale: "ko-KR",
       timezoneId: "Asia/Seoul",
@@ -324,16 +403,30 @@ export class ProductionNaverBrowserFactory implements NaverBrowserPageFactory {
     if (shared.userAgent !== null) {
       contextOptions.userAgent = shared.userAgent;
     }
-    const context = await shared.browser.newContext(contextOptions);
-    await applyResourceBlocking(context);
-    const page = await context.newPage();
-    return {
-      page,
-      cleanup: async () => {
-        await page.close().catch(() => undefined);
-        await context.close().catch(() => undefined);
-      },
-    };
+    const context = await raceAbort(
+      shared.browser.newContext(contextOptions),
+      signal,
+      (orphan) => void orphan.close().catch(() => undefined),
+    );
+    try {
+      await applyResourceBlocking(context);
+      const page = await raceAbort(
+        context.newPage(),
+        signal,
+        (orphan) => void orphan.close().catch(() => undefined),
+      );
+      throwIfAborted(signal);
+      return {
+        page,
+        cleanup: async () => {
+          await page.close().catch(() => undefined);
+          await context.close().catch(() => undefined);
+        },
+      };
+    } catch (error) {
+      await context.close().catch(() => undefined);
+      throw error;
+    }
   }
 
   async dispose(): Promise<void> {
@@ -362,12 +455,25 @@ export class PlaywrightNaverClient implements SourceClient {
     signal?: AbortSignal,
   ): Promise<CapturedResponse> {
     const scrapedAt = new Date().toISOString();
-    const { page, cleanup } = await this.factory.createPage();
+    const { page, cleanup } = await this.factory.createPage(signal);
+
+    // Playwright's goto/innerText ignore AbortSignal; closing the page is the
+    // only reliable way to reject their pending protocol calls on abort.
+    let cleanedUp = false;
+    const runCleanup = async () => {
+      if (cleanedUp) {
+        return;
+      }
+      cleanedUp = true;
+      await cleanup();
+    };
+    const onAbort = () => {
+      void runCleanup();
+    };
+    signal?.addEventListener("abort", onAbort, { once: true });
 
     try {
-      if (signal?.aborted) {
-        throw Object.assign(new Error("Aborted"), { name: "AbortError" });
-      }
+      throwIfAborted(signal);
 
       const url = buildNaverSearchUrl(input);
       await page.goto(url, {
@@ -375,11 +481,15 @@ export class PlaywrightNaverClient implements SourceClient {
         timeout: TIMEOUT_MS,
         ...(signal === undefined ? {} : { signal }),
       });
+      throwIfAborted(signal);
 
       const bodyText = await waitForReadyBody(page, this.polling, signal);
       const body = wrapBodyText(bodyText, page.url());
       return { body, scrapedAt };
     } catch (error) {
+      if (signal?.aborted === true && !(error instanceof ProviderFailure)) {
+        throw abortError();
+      }
       if (error instanceof ProviderFailure) {
         throw error;
       }
@@ -392,7 +502,8 @@ export class PlaywrightNaverClient implements SourceClient {
         { cause: error instanceof Error ? error : undefined },
       );
     } finally {
-      await cleanup();
+      signal?.removeEventListener("abort", onAbort);
+      await runCleanup();
     }
   }
 }

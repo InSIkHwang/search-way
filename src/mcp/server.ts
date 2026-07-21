@@ -178,6 +178,9 @@ export function composeProductionStack(
     minDelayMs: runtime.minDelayMs,
     maxDelayMs: runtime.maxDelayMs,
     retryBaseDelayMs: runtime.retryBaseDelayMs,
+    taskDeadlineMs: runtime.taskDeadlineMs,
+    taskKillGraceMs: runtime.taskKillGraceMs,
+    stallTimeoutMs: runtime.stallTimeoutMs,
     retryPolicy: {
       maxAttempts: runtime.maxRetries + 1,
       shouldRetry: (error, attempt) =>
@@ -212,6 +215,10 @@ export function composeProductionStack(
       retryBaseDelayMs: orchestratorConfig.retryBaseDelayMs,
       retryPolicy: orchestratorConfig.retryPolicy,
       limiterHooks: orchestratorConfig.limiterHooks,
+      taskDeadlineMs: orchestratorConfig.taskDeadlineMs,
+      taskKillGraceMs: orchestratorConfig.taskKillGraceMs,
+      setTimeout: orchestratorConfig.setTimeoutFn,
+      clearTimeout: orchestratorConfig.clearTimeoutFn,
     }),
     naver: Scheduler({
       source: "naver",
@@ -224,6 +231,10 @@ export function composeProductionStack(
       retryBaseDelayMs: orchestratorConfig.retryBaseDelayMs,
       retryPolicy: orchestratorConfig.retryPolicy,
       limiterHooks: orchestratorConfig.limiterHooks,
+      taskDeadlineMs: orchestratorConfig.taskDeadlineMs,
+      taskKillGraceMs: orchestratorConfig.taskKillGraceMs,
+      setTimeout: orchestratorConfig.setTimeoutFn,
+      clearTimeout: orchestratorConfig.clearTimeoutFn,
     }),
   };
 
