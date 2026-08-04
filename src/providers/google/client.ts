@@ -1,8 +1,13 @@
 import type { ProviderSearchInput } from "../types.js";
 
-import { isGoogleResultsReady } from "./parser.js";
+import {
+  injectGoogleInboundLeg,
+} from "./inbound-capture.js";
+import { extractGoogleDirectCandidates, isGoogleResultsReady } from "./parser.js";
 
 import { ProviderFailure } from "./failures.js";
+
+import type { Page } from "playwright";
 
 
 
@@ -45,6 +50,14 @@ export interface GoogleBrowserPage {
   url(): string;
 
   close(): Promise<void>;
+
+  captureInboundLeg?(
+
+    input: ProviderSearchInput,
+
+    signal?: AbortSignal,
+
+  ): Promise<{ departureTime?: string; arrivalTime?: string } | null>;
 
 }
 
@@ -456,6 +469,216 @@ async function waitForReadyHtml(
 
 
 
+const INBOUND_PANEL_TIMEOUT_MS = 30_000;
+
+const RETURN_ROUTE_PATTERN = /도착\s*항공편|return/i;
+
+
+
+function wrapHtmlRow(outerHtml: string): string {
+
+  return `<!DOCTYPE html><html><body>${outerHtml}</body></html>`;
+
+}
+
+
+
+function pickLowestDirectCandidate(html: string) {
+
+  const candidates = extractGoogleDirectCandidates(html);
+
+  if (candidates.length === 0) {
+
+    return null;
+
+  }
+
+  return candidates.reduce((best, current) =>
+
+    current.price < best.price ? current : best,
+
+  );
+
+}
+
+
+
+async function findLowestDirectRowIndex(page: Page): Promise<number | null> {
+
+  const rows = page.locator("li.pIav2d");
+
+  const count = await rows.count();
+
+  let bestIndex: number | null = null;
+
+  let bestPrice = Number.POSITIVE_INFINITY;
+
+  for (let index = 0; index < count; index += 1) {
+
+    const outerHtml = await rows.nth(index).evaluate((element) => element.outerHTML);
+
+    const lowest = pickLowestDirectCandidate(wrapHtmlRow(outerHtml));
+
+    if (lowest !== null && lowest.price < bestPrice) {
+
+      bestPrice = lowest.price;
+
+      bestIndex = index;
+
+    }
+
+  }
+
+  return bestIndex;
+
+}
+
+
+
+async function waitForInboundPanel(
+
+  page: Page,
+
+  input: ProviderSearchInput,
+
+  signal?: AbortSignal,
+
+): Promise<void> {
+
+  const returnRoute = `${input.destination}–${input.origin}`;
+
+  const startedAt = Date.now();
+
+  while (Date.now() - startedAt < INBOUND_PANEL_TIMEOUT_MS) {
+
+    throwIfAborted(signal);
+
+    const bodyText = await page.locator("body").innerText();
+
+    if (RETURN_ROUTE_PATTERN.test(bodyText) || bodyText.includes(returnRoute)) {
+
+      const rows = page.locator("li.pIav2d");
+
+      if ((await rows.count()) > 0) {
+
+        return;
+
+      }
+
+    }
+
+    await sleep(500);
+
+  }
+
+  throw new ProviderFailure("provider_error", "Google return-flight panel did not become ready");
+
+}
+
+
+
+async function captureInboundLegWithPlaywright(
+
+  page: Page,
+
+  input: ProviderSearchInput,
+
+  signal?: AbortSignal,
+
+): Promise<{ departureTime?: string; arrivalTime?: string } | null> {
+
+  const rowIndex = await findLowestDirectRowIndex(page);
+
+  if (rowIndex === null) {
+
+    return null;
+
+  }
+
+  await page.locator("li.pIav2d").nth(rowIndex).click();
+
+  await waitForInboundPanel(page, input, signal);
+
+  const rows = page.locator("li.pIav2d");
+
+  const count = await rows.count();
+
+  let best:
+    | {
+        price: number;
+        outboundDepartureTime?: string;
+        outboundArrivalTime?: string;
+      }
+    | null = null;
+
+  for (let index = 0; index < count; index += 1) {
+
+    const outerHtml = await rows.nth(index).evaluate((element) => element.outerHTML);
+
+    const lowest = pickLowestDirectCandidate(wrapHtmlRow(outerHtml));
+
+    if (lowest === null) {
+
+      continue;
+
+    }
+
+    if (best === null || lowest.price < best.price) {
+
+      best = lowest;
+
+    }
+
+  }
+
+  if (best === null) {
+
+    return null;
+
+  }
+
+  return {
+
+    ...(best.outboundDepartureTime === undefined
+
+      ? {}
+
+      : { departureTime: best.outboundDepartureTime }),
+
+    ...(best.outboundArrivalTime === undefined
+
+      ? {}
+
+      : { arrivalTime: best.outboundArrivalTime }),
+
+  };
+
+}
+
+
+
+function wrapPlaywrightPage(page: Page): GoogleBrowserPage {
+
+  return {
+
+    goto: (url, options) =>
+
+      page.goto(url, options as Parameters<Page["goto"]>[1]),
+
+    content: () => page.content(),
+
+    url: () => page.url(),
+
+    close: () => page.close(),
+
+    captureInboundLeg: (input, signal) => captureInboundLegWithPlaywright(page, input, signal),
+
+  };
+
+}
+
+
+
 const DEFAULT_LAUNCH_TIMEOUT_MS = 60_000;
 
 
@@ -622,7 +845,7 @@ export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory 
 
       await applyResourceBlocking(context);
 
-      const page = await raceAbort(
+      const playwrightPage = (await raceAbort(
 
         context.newPage(),
 
@@ -630,17 +853,17 @@ export class ProductionGoogleBrowserFactory implements GoogleBrowserPageFactory 
 
         (orphan) => void orphan.close().catch(() => undefined),
 
-      );
+      )) as unknown as Page;
 
       throwIfAborted(signal);
 
       return {
 
-        page,
+        page: wrapPlaywrightPage(playwrightPage),
 
         cleanup: async () => {
 
-          await page.close().catch(() => undefined);
+          await playwrightPage.close().catch(() => undefined);
 
           await context.close().catch(() => undefined);
 
@@ -770,7 +993,39 @@ export class PlaywrightGoogleClient implements SourceClient {
 
       const rawHtml = await waitForReadyHtml(page, this.polling, signal);
 
-      const body = injectCaptureUrl(rawHtml, page.url());
+      let body = injectCaptureUrl(rawHtml, page.url());
+
+      if (page.captureInboundLeg !== undefined) {
+
+        try {
+
+          const inboundLeg = await page.captureInboundLeg(input, signal);
+
+          if (inboundLeg !== null) {
+
+            body = injectGoogleInboundLeg(body, inboundLeg);
+
+          }
+
+        } catch (error) {
+
+          if (signal?.aborted === true) {
+
+            throw abortError();
+
+          }
+
+          if (error instanceof ProviderFailure) {
+
+            throw error;
+
+          }
+
+          // Keep list-only capture when the return panel fails unexpectedly.
+
+        }
+
+      }
 
       return { body, scrapedAt };
 

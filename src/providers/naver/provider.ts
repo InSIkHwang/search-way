@@ -53,7 +53,10 @@ export class NaverFlightProvider implements FlightProvider {
     }
     try {
       const captured = await this.client.search(input, controller.signal);
-      return parseNaverDirectRoundTrip(captured.body, captured.scrapedAt, input.airline);
+      return parseNaverDirectRoundTrip(captured.body, captured.scrapedAt, input.airline, {
+        departureDate: input.departureDate,
+        returnDate: input.returnDate,
+      });
     } catch (error) {
       if (error instanceof ProviderFailure) {
         throw error;

@@ -41,6 +41,10 @@ export function inspectNaverFixture(body: string): {
 }
 
 const scrapedAt = "2026-07-14T00:00:00.000Z";
+const parseContext = {
+  departureDate: "2026-10-08",
+  returnDate: "2026-10-12",
+};
 const fixtureUrl = (name: string) =>
   new URL(`./fixtures/${name}`, import.meta.url);
 const manifest = JSON.parse(
@@ -52,14 +56,26 @@ const fixture = (key: string) =>
 describe("parseNaverDirectRoundTrip", () => {
   it("parses the recorded final_case provenance fixture", async () => {
     const body = await fixture("provenanceDirectRoundTrip");
-    const quote = parseNaverDirectRoundTrip(body, scrapedAt);
+    const quote = parseNaverDirectRoundTrip(body, scrapedAt, undefined, parseContext);
 
     expect(quote.currency).toBe("KRW");
     expect(quote.price).toBe(367388);
     expect(Number.isSafeInteger(quote.price)).toBe(true);
     expect(new URL(quote.url).protocol).toMatch(/^https?:$/);
     expect(quote.scrapedAt).toBe(scrapedAt);
-    expect("airline" in quote).toBe(false);
+    expect(quote.airline).toBe("아시아나항공");
+    expect(quote.outbound).toMatchObject({
+      date: "2026-10-08",
+      departureTime: "09:30",
+      arrivalTime: "12:35",
+      airline: "아시아나항공",
+    });
+    expect(quote.inbound).toMatchObject({
+      date: "2026-10-12",
+      departureTime: "10:15",
+      arrivalTime: "12:20",
+      airline: "아시아나항공",
+    });
   });
 
   it("extracts airline names from Naver direct rows", () => {
@@ -78,10 +94,19 @@ describe("parseNaverDirectRoundTrip", () => {
 왕복
 638160
 원~</pre></body></html>`;
-    const quote = parseNaverDirectRoundTrip(body, scrapedAt);
+    const quote = parseNaverDirectRoundTrip(body, scrapedAt, undefined, {
+      departureDate: "2026-12-05",
+      returnDate: "2026-12-13",
+    });
 
     expect(quote.price).toBe(601730);
     expect(quote.airline).toBe("비엣젯항공");
+    expect(quote.outbound).toMatchObject({
+      date: "2026-12-05",
+      departureTime: "08:00",
+      arrivalTime: "11:40",
+      airline: "비엣젯항공",
+    });
   });
 
   it("selects the minimum from synthetic direct candidates", async () => {

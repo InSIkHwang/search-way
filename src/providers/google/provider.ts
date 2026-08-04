@@ -53,7 +53,10 @@ export class GoogleFlightProvider implements FlightProvider {
     }
     try {
       const captured = await this.client.search(input, controller.signal);
-      return parseGoogleDirectRoundTrip(captured.body, captured.scrapedAt, input.airline);
+      return parseGoogleDirectRoundTrip(captured.body, captured.scrapedAt, input.airline, {
+        departureDate: input.departureDate,
+        returnDate: input.returnDate,
+      });
     } catch (error) {
       if (error instanceof ProviderFailure) {
         throw error;

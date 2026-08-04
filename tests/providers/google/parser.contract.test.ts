@@ -23,6 +23,10 @@ export function inspectGoogleFixture(body: string): {
 }
 
 const scrapedAt = "2026-07-14T00:00:00.000Z";
+const parseContext = {
+  departureDate: "2026-10-08",
+  returnDate: "2026-10-12",
+};
 const fixtureUrl = (name: string) =>
   new URL(`./fixtures/${name}`, import.meta.url);
 const manifest = JSON.parse(
@@ -34,7 +38,7 @@ const fixture = (key: string) =>
 describe("parseGoogleDirectRoundTrip", () => {
   it("parses the recorded final_case provenance fixture", async () => {
     const body = await fixture("provenanceDirectRoundTrip");
-    const quote = parseGoogleDirectRoundTrip(body, scrapedAt);
+    const quote = parseGoogleDirectRoundTrip(body, scrapedAt, undefined, parseContext);
 
     expect(quote.currency).toBe("KRW");
     expect(quote.price).toBe(417629);
@@ -42,6 +46,18 @@ describe("parseGoogleDirectRoundTrip", () => {
     expect(Number.isSafeInteger(quote.price)).toBe(true);
     expect(new URL(quote.url).protocol).toMatch(/^https?:$/);
     expect(quote.scrapedAt).toBe(scrapedAt);
+    expect(quote.outbound).toMatchObject({
+      date: "2026-10-08",
+      departureTime: "09:30",
+      arrivalTime: "12:35",
+      airline: "Asiana Airlines",
+    });
+    expect(quote.inbound).toMatchObject({
+      date: "2026-10-12",
+      departureTime: "10:15",
+      arrivalTime: "12:20",
+      airline: "Asiana Airlines",
+    });
   });
 
   it("parses the modern Google row layout with aria-label airline and price", () => {

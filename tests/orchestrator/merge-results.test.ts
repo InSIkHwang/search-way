@@ -18,6 +18,16 @@ const quote = (price: number, currency = "KRW"): Quote => ({
   currency,
   url: `https://example.test/${price}`,
   scrapedAt: "2026-07-14T00:00:00.000Z",
+  outbound: {
+    date: pair.departureDate,
+    departureTime: "08:00",
+    arrivalTime: "11:30",
+  },
+  inbound: {
+    date: pair.returnDate,
+    departureTime: "12:00",
+    arrivalTime: "15:30",
+  },
 });
 const success = (source: ProviderId, value: Quote): CellOutcome => ({
   kind: "success",
@@ -83,6 +93,34 @@ describe("mergePair", () => {
       "currency_mismatch",
       "currency_mismatch",
     ]);
+  });
+
+  it("preserves leg details on the selected best quote", () => {
+    const googleQuote = {
+      ...quote(100_000),
+      outbound: {
+        date: pair.departureDate,
+        departureTime: "09:00",
+        arrivalTime: "12:00",
+        airline: "GoogleAir",
+      },
+      inbound: {
+        date: pair.returnDate,
+        departureTime: "13:00",
+        arrivalTime: "16:00",
+        airline: "GoogleAir",
+      },
+    };
+    const naverQuote = quote(90_000);
+    const merged = mergePair(
+      pair,
+      success("google", googleQuote),
+      success("naver", naverQuote),
+      now,
+    );
+    expect(merged.row?.best.source).toBe("naver");
+    expect(merged.row?.google?.outbound?.departureTime).toBe("09:00");
+    expect(merged.row?.best.outbound?.departureTime).toBe("08:00");
   });
 
   it("sorts partial rows by price then dates", () => {

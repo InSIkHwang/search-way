@@ -95,7 +95,7 @@ export function createMcpServer(options: ServerOptions): McpServer {
     "get_search_status",
     {
       description:
-        "Read the current job snapshot. Results may be partial while the search is running.",
+        "Read the current job snapshot. Results may be partial while the search is running. Each result includes summary (human-readable), and outbound/inbound legs with date, optional departure_time, arrival_time, and airline on google, naver, and best quotes.",
       inputSchema: jobIdExternalSchema.shape,
     },
     async (input) => toCallToolResult(await tools.getStatus(input)),

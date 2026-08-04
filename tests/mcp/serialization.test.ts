@@ -8,6 +8,19 @@ const quote = (price: number, scrapedAt: string): Quote => ({
   currency: "KRW",
   url: `https://example.test/${price}`,
   scrapedAt,
+  airline: "테스트항공",
+  outbound: {
+    date: "2026-10-01",
+    departureTime: "08:00",
+    arrivalTime: "11:30",
+    airline: "테스트항공",
+  },
+  inbound: {
+    date: "2026-10-02",
+    departureTime: "12:00",
+    arrivalTime: "15:30",
+    airline: "테스트항공",
+  },
 });
 
 const makeJob = (): SearchJob => {
@@ -96,7 +109,23 @@ describe("serializeSearchJob", () => {
       departure_date: "2026-10-02",
       return_date: "2026-10-03",
       trip_days: 2,
-      best: { source: "naver", scraped_at: "2026-07-14T00:00:30.000Z" },
+      summary: "가는 편 2026-10-01 08:00→11:30 테스트항공 | 오는 편 2026-10-02 12:00→15:30 테스트항공 | ₩200,000 (naver)",
+      best: {
+        source: "naver",
+        scraped_at: "2026-07-14T00:00:30.000Z",
+        outbound: {
+          date: "2026-10-01",
+          departure_time: "08:00",
+          arrival_time: "11:30",
+          airline: "테스트항공",
+        },
+        inbound: {
+          date: "2026-10-02",
+          departure_time: "12:00",
+          arrival_time: "15:30",
+          airline: "테스트항공",
+        },
+      },
     });
     expect(serialized.errors).toEqual([{
       departure_date: "2026-10-03",
