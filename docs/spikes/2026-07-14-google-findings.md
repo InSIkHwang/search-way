@@ -40,16 +40,6 @@ Anonymous Playwright navigation to the verified search URL returned nonstop mark
 
 Removed: cookies, auth headers, full HTML, HAR, session tokens.
 
-## source_addendum
-
-```json
-{
-  "path": "docs/superpowers/plans/2026-07-14-flexible-flight-search-phase0-google-source-addendum.md",
-  "status": "Approved",
-  "normalized_source_sha256": "pending-after-run"
-}
-```
-
 ## Phase 2 Handoff
 
 ```json

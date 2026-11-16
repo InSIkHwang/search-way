@@ -60,8 +60,7 @@ const defaults: OrchestratorConfig = {
     afterFailure: async () => undefined,
   },
   settledRuntimeLimit: 100,
-  // 30s provider abort + readiness polling headroom; see docs/runs/
-  // 2026-07-21-pus-flexible-search-and-stall-analysis.md for the stall model.
+  // Allow 15s for cleanup after the provider's 30s abort timeout.
   taskDeadlineMs: 45_000,
   taskKillGraceMs: 10_000,
   stallTimeoutMs: 600_000,

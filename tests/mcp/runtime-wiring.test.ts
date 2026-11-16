@@ -1,8 +1,21 @@
-import { describe, expect, it, vi } from "vitest";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { composeProductionStack } from "../../src/mcp/server.js";
 import { SourceScheduler } from "../../src/orchestrator/queue.js";
 
 describe("composeProductionStack runtime wiring", () => {
+  let directory: string;
+
+  beforeEach(async () => {
+    directory = await mkdtemp(join(tmpdir(), "search-way-runtime-"));
+  });
+
+  afterEach(async () => {
+    await rm(directory, { recursive: true, force: true });
+  });
+
   it("creates shared schedulers and runtime limits", () => {
     const createScheduler = vi.fn((options: ConstructorParameters<typeof SourceScheduler>[0]) =>
       new SourceScheduler(options),
@@ -10,7 +23,7 @@ describe("composeProductionStack runtime wiring", () => {
     const stack = composeProductionStack({
       env: {
         SEARCH_WAY_OFFLINE_SMOKE: "1",
-        SEARCH_WAY_DATA_DIR: "./tmp/runtime-wiring",
+        SEARCH_WAY_DATA_DIR: directory,
       },
       createScheduler,
     });
@@ -53,7 +66,7 @@ describe("composeProductionStack runtime wiring", () => {
         url: "https://example.test/2",
         scrapedAt: "2026-07-14T00:00:00.000Z",
       }) },
-      store: new JsonJobStore("./tmp/fallback"),
+      store: new JsonJobStore(directory),
       generateDatePairs: (await import("../../src/domain/date-combinator.js")).generateDatePairs,
       createJobId: () => "fallback-job",
       config: { minDelayMs: 0, maxDelayMs: 0 },
